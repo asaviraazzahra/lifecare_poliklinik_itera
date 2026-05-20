@@ -45,7 +45,7 @@ class UserMedicineController extends Controller
         // Validasi input obat
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'dose' => 'required|string|max:100',
+            'dose' => 'required|numeric|min:0.01',
             'unit' => 'required|string|max:50',
             'notes' => 'nullable|string|max:500',
         ]);
@@ -95,7 +95,7 @@ class UserMedicineController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'dose' => 'required|string|max:100',
+            'dose' => 'required|numeric|min:0.01',
             'unit' => 'required|string|max:50',
             'notes' => 'nullable|string|max:500',
         ]);

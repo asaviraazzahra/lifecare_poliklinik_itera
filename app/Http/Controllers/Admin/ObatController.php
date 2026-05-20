@@ -54,7 +54,7 @@ class ObatController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'dose' => 'required|string|max:255',
+            'dose' => 'required|numeric|min:0.01',
             'unit' => 'nullable|string|max:100',
             'notes' => 'nullable|string',
         ]);
@@ -97,7 +97,7 @@ class ObatController extends Controller
         
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'dose' => 'required|string|max:255',
+            'dose' => 'required|numeric|min:0.01',
             'unit' => 'nullable|string|max:100',
             'notes' => 'nullable|string',
         ]);

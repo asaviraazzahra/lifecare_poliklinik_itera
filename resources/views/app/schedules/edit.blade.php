@@ -120,7 +120,7 @@
         <!-- Tanggal Selesai -->
         <div>
             <label for="end_date" class="block text-sm font-semibold text-gray-900 mb-1">
-                Selesai (Opsional)
+                Selesai <span class="text-red-600">*</span>
             </label>
             <input
                 type="date"
@@ -128,6 +128,7 @@
                 name="end_date"
                 value="{{ old('end_date', $schedule->end_date ? $schedule->end_date->format('Y-m-d') : '') }}"
                 min="{{ now()->toDateString() }}"
+                required
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-blue-500"
             />
             @error('end_date')
@@ -156,14 +157,15 @@
         <!-- Frekuensi -->
         <div>
             <label for="frequency" class="block text-sm font-semibold text-gray-900 mb-1">
-                Frekuensi
+                Frekuensi <span class="text-red-600">*</span>
             </label>
             <select
                 id="frequency"
                 name="frequency"
+                required
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-blue-500"
             >
-                <option value="">-- Tidak ada --</option>
+                <option value="">-- Pilih Frekuensi --</option>
                 <option value="1x sehari" {{ (old('frequency') ?? $schedule->frequency) == '1x sehari' ? 'selected' : '' }}>1x sehari</option>
                 <option value="2x sehari" {{ (old('frequency') ?? $schedule->frequency) == '2x sehari' ? 'selected' : '' }}>2x sehari</option>
                 <option value="3x sehari" {{ (old('frequency') ?? $schedule->frequency) == '3x sehari' ? 'selected' : '' }}>3x sehari</option>
@@ -177,7 +179,7 @@
         <!-- Durasi -->
         <div>
             <label for="duration_days" class="block text-sm font-semibold text-gray-900 mb-1">
-                Durasi (Hari)
+                Durasi (Hari) <span class="text-red-600">*</span>
             </label>
             <input
                 type="number"
@@ -187,6 +189,7 @@
                 min="1"
                 max="365"
                 placeholder="Contoh: 7"
+                required
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-blue-500"
             />
             @error('duration_days')

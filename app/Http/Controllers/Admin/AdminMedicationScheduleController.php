@@ -107,11 +107,11 @@ class AdminMedicationScheduleController extends Controller
                 'user_id' => ['required', 'exists:users,id'],
                 'medicine_id' => ['required', 'exists:medicines,id'],
                 'start_date' => ['required', 'date', 'date_format:Y-m-d'],
-                'end_date' => ['nullable', 'date', 'date_format:Y-m-d', 'after_or_equal:start_date'],
+                'end_date' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:start_date'],
                 'times' => ['required', 'array'],
                 'times.*' => ['required', 'date_format:H:i'],
                 'frequency' => ['nullable', 'string', 'max:50'],
-                'duration_days' => ['nullable', 'integer', 'min:1', 'max:365'],
+                'duration_days' => ['required', 'integer', 'min:1', 'max:365'],
                 'source' => ['required', 'in:resep,mandiri'],
                 'is_active' => ['nullable', 'boolean'],
             ]);
@@ -183,7 +183,7 @@ class AdminMedicationScheduleController extends Controller
                 'end_date' => ['nullable', 'date', 'date_format:Y-m-d', 'after_or_equal:start_date'],
                 'time' => ['required', 'date_format:H:i'],
                 'frequency' => ['nullable', 'string', 'max:50'],
-                'duration_days' => ['nullable', 'integer', 'min:1', 'max:365'],
+                'duration_days' => ['required', 'integer', 'min:1', 'max:365'],
                 'source' => ['required', 'in:resep,mandiri'],
                 'is_active' => ['nullable', 'boolean'],
             ]);

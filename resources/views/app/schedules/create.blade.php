@@ -100,7 +100,7 @@
 
                 <div>
                     <label for="end_date" class="block text-sm font-semibold text-gray-900 mb-2">
-                        Tanggal Selesai (Opsional)
+                        Tanggal Selesai <span class="text-red-600">*</span>
                     </label>
                     <input
                         type="date"
@@ -108,6 +108,7 @@
                         name="end_date"
                         value="{{ old('end_date') }}"
                         min="{{ now()->toDateString() }}"
+                        required
                         onchange="calculateDuration()"
                         class="w-full px-4 py-2 border {{ $errors->has('end_date') ? 'border-red-500 bg-red-50' : 'border-gray-300' }} rounded-lg text-sm focus:outline-none focus:border-blue-500 transition"
                     />
@@ -120,11 +121,12 @@
             <!-- Frekuensi -->
             <div>
                 <label for="frequency" class="block text-sm font-semibold text-gray-900 mb-2">
-                    Frekuensi (Opsional)
+                    Frekuensi <span class="text-red-600">*</span>
                 </label>
                 <select
                     id="frequency"
                     name="frequency"
+                    required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-blue-500 transition"
                     onchange="updateTimeInputs()"
                 >
@@ -170,7 +172,7 @@
             <!-- Durasi -->
             <div>
                 <label for="duration_days" class="block text-sm font-semibold text-gray-900 mb-2">
-                    Durasi (Hari, Opsional)
+                    Durasi (Hari) <span class="text-red-600">*</span>
                 </label>
                 <input
                     type="number"
@@ -180,6 +182,7 @@
                     min="1"
                     max="365"
                     placeholder="Jumlah hari"
+                    required
                     class="w-full px-4 py-2 border {{ $errors->has('duration_days') ? 'border-red-500 bg-red-50' : 'border-gray-300' }} rounded-lg text-sm focus:outline-none focus:border-blue-500 transition"
                 />
                 @error('duration_days')

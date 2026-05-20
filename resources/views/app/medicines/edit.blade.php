@@ -48,7 +48,7 @@
             <div>
                 <label class="block text-sm font-semibold text-gray-900 mb-2">Dosis</label>
                 <input 
-                    type="text" 
+                    type="number" 
                     name="dose" 
                     required
                     placeholder="Contoh: 500"

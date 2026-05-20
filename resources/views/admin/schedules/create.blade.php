@@ -96,7 +96,7 @@
 
                 <div>
                     <label for="end_date" class="block text-sm font-semibold text-gray-900 mb-2">
-                        Tanggal Selesai (Opsional)
+                        Tanggal Selesai <span class="text-red-600">*</span>
                     </label>
                     <input
                         type="date"
@@ -104,6 +104,7 @@
                         name="end_date"
                         value="{{ old('end_date') }}"
                         onchange="calculateDuration()"
+                        required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
                     @error('end_date')
@@ -165,7 +166,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="duration_days" class="block text-sm font-semibold text-gray-900 mb-2">
-                        Durasi (Hari, Opsional)
+                        Durasi (Hari) <span class="text-red-600">*</span>
                     </label>
                     <input
                         type="number"
@@ -175,6 +176,7 @@
                         min="1"
                         max="365"
                         placeholder="Jumlah hari"
+                        required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
                     @error('duration_days')

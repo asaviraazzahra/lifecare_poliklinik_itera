@@ -97,13 +97,14 @@
 
                 <div>
                     <label for="end_date" class="block text-sm font-semibold text-gray-900 mb-2">
-                        Tanggal Selesai (Opsional)
+                        Tanggal Selesai <span class="text-red-600">*</span>
                     </label>
                     <input
                         type="date"
                         id="end_date"
                         name="end_date"
                         value="{{ old('end_date', optional($schedule->end_date)->format('Y-m-d')) }}"
+                        required
                         onchange="calculateDuration()"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
@@ -136,11 +137,12 @@
 
                 <div>
                     <label for="frequency" class="block text-sm font-semibold text-gray-900 mb-2">
-                        Frekuensi (Opsional)
+                        Frekuensi <span class="text-red-600">*</span>
                     </label>
                     <select
                         id="frequency"
                         name="frequency"
+                        required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                     >
                         <option value="">-- Pilih Frekuensi --</option>
@@ -158,7 +160,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="duration_days" class="block text-sm font-semibold text-gray-900 mb-2">
-                        Durasi (Hari, Opsional)
+                        Durasi (Hari) <span class="text-red-600">*</span>
                     </label>
                     <input
                         type="number"
@@ -168,6 +170,7 @@
                         min="1"
                         max="365"
                         placeholder="Jumlah hari"
+                        required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
                     @error('duration_days')
