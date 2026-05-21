@@ -10,19 +10,13 @@ use Illuminate\Support\Facades\Log;
 
 class ScheduleMedicationNotifications extends Command
 {
-    /**
-     * The name and signature of the console command.
-     */
+    //schedule medication notifications ke OneSignal
     protected $signature = 'medication:schedule-notifications {--days=7}';
 
-    /**
-     * The description of the console command.
-     */
+    //sync active medication schedules dengan OneSignal Scheduled Messages (batch job untuk 7 hari)
     protected $description = 'Sync active medication schedules dengan OneSignal Scheduled Messages (batch job untuk 7 hari)';
 
-    /**
-     * Execute the console command.
-     */
+    //schedule command ini untuk dijalankan setiap hari pada pukul 00:00
     public function handle()
     {
         $days = (int) $this->option('days');
@@ -39,19 +33,17 @@ class ScheduleMedicationNotifications extends Command
         }
     }
 
-    /**
-     * Schedule notifications for all active medication schedules
-     */
+    //user dengan medication schedule aktif (start_date <= 7 hari ke depan, end_date null atau >= sekarang) akan disync ke OneSignal sebagai scheduled messages
     private function scheduleNotifications(int $days)
     {
         $service = new OneSignalSyncService();
 
-        // Work in UTC consistently
+        // Hitung rentang tanggal untuk schedule (dari sekarang sampai 7 hari ke depan)
         $now = now('UTC');
         $startDate = $now->copy()->startOfDay();
         $endDate = $startDate->copy()->addDays($days)->endOfDay();
 
-        // Get all active users with medication schedules
+        // Cari users dengan medication schedule aktif dalam rentang tanggal tersebut
         $users = User::whereIn('role_user', ['user', 'mahasiswa', 'pegawai', 'pasien', 'patient'])
             ->whereHas('medicationSchedules', function($q) use ($endDate) {
                 $q->where('is_active', true)
@@ -75,7 +67,7 @@ class ScheduleMedicationNotifications extends Command
         $errorCount = 0;
 
         foreach ($users as $user) {
-            // Get active medication schedules for this user
+            // Cari medication schedules aktif untuk user ini dalam rentang tanggal
             $schedules = MedicationSchedule::where('user_id', $user->id)
                 ->where('is_active', true)
                 ->whereDate('start_date', '<=', $endDate)
@@ -86,7 +78,7 @@ class ScheduleMedicationNotifications extends Command
 
             foreach ($schedules as $schedule) {
                 try {
-                    // Use OneSignalSyncService to schedule notifications
+                    // Sync schedule ke OneSignal sebagai scheduled message
                     if ($service->syncScheduleToOneSignal($schedule)) {
                         $totalScheduled += 2; // First + second reminder
                         $this->line("  ✓ Synced: {$user->email} - {$schedule->medicine->name}");

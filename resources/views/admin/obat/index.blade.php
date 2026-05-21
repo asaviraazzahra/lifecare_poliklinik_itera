@@ -70,14 +70,15 @@
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead class="bg-gray-50 border-b border-gray-200">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">NAMA OBAT</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">DOSIS</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">UNIT</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">CATATAN</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">DITAMBAHKAN</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">AKSI</th>
-                    </tr>
+    <tr>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">NAMA OBAT</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">DOSIS</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">UNIT</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">CATATAN</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">DITAMBAHKAN OLEH</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">DITAMBAHKAN</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">AKSI</th>
+    </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @forelse($medicines as $medicine)
@@ -93,6 +94,17 @@
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-600">
                                 {{ $medicine->notes ? Str::limit($medicine->notes, 50) : '-' }}
+                            </td>
+                            <td class="px-6 py-4 text-sm">
+                                @if($medicine->user_id)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                        {{ $medicine->user->name ?? 'N/A' }}
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        Admin
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-600">
                                 {{ $medicine->created_at->format('M d, Y') }}
@@ -118,7 +130,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-8 text-center text-gray-600">
+                            <td colspan="7" class="px-6 py-8 text-center text-gray-600">
                                 Belum ada obat terdaftar
                             </td>
                         </tr>

@@ -102,7 +102,7 @@ class MedicationLogController extends Controller
                     continue;
                 }
 
-                // Buat atau update log obat yang diminum
+                // medication_logsBuat atau update log obat yang diminum
                 $log = MedicationLog::updateOrCreate(
                     [
                         'user_id' => $userId,

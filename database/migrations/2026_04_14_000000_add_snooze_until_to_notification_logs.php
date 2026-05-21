@@ -6,12 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     * 
-     * Adds snooze_until column to track when a snoozed reminder should
-     * be re-shown to the user (for dashboard reminder feature)
-     */
+    //untuk menentukan kapan reminder yang sudah disnooze akan muncul lagi
     public function up(): void
     {
         Schema::table('notification_logs', function (Blueprint $table) {
@@ -20,9 +15,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    //untuk menghapus kolom snooze_until jika rollback migration
     public function down(): void
     {
         Schema::table('notification_logs', function (Blueprint $table) {
